@@ -86,6 +86,11 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
     };
 });
 
+
+builder.Services.AddCors(o => o.AddPolicy("web", p => p
+    .WithOrigins("https://bibliotechweb-abckapa2anehahf5.brazilsouth-01.azurewebsites.net/")
+    .AllowAnyHeader().AllowAnyMethod()));
+
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((documento, contexto, cancelacion) =>
