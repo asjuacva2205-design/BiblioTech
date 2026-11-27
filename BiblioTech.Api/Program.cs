@@ -125,7 +125,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();            
+app.UseAuthentication(); 
+
+app.UseCors("web");
+
 app.UseCors(PoliticaFrontend);      
 app.UseAuthorization();             
 app.MapControllers();
