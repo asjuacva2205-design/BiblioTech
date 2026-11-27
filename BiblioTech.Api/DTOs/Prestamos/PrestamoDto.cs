@@ -11,6 +11,5 @@ public class PrestamoDto
     public DateTime FechaDevolucionEsperada { get; set; }
     public DateTime? FechaDevolucionReal { get; set; }
 
-    /// <summary>Activo, Devuelto o Vencido (este último calculado, no guardado).</summary>
     public string Estado { get; set; } = string.Empty;
 }

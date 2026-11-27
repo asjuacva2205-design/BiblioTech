@@ -13,7 +13,6 @@ public class LibroService(BibliotecaContext db) : ILibroService
     {
         var consulta = db.Libros.AsQueryable();
 
-        // Búsqueda por título, ISBN o nombre de autor (EF lo traduce a WHERE ... LIKE)
         if (!string.IsNullOrWhiteSpace(buscar))
         {
             var texto = buscar.Trim();
@@ -50,8 +49,8 @@ public class LibroService(BibliotecaContext db) : ILibroService
             Isbn = isbn,
             AnioPublicacion = dto.AnioPublicacion,
             EjemplaresTotales = dto.EjemplaresTotales,
-            EjemplaresDisponibles = dto.EjemplaresTotales,   // libro nuevo: todos disponibles
-            Autores = await ObtenerAutoresAsync(dto.AutorIds)  // N:N: EF llena LibroAutor solo
+            EjemplaresDisponibles = dto.EjemplaresTotales,   
+            Autores = await ObtenerAutoresAsync(dto.AutorIds)  
         };
 
         db.Libros.Add(libro);
@@ -62,7 +61,6 @@ public class LibroService(BibliotecaContext db) : ILibroService
 
     public async Task ActualizarAsync(int id, LibroGuardarDto dto)
     {
-        // Include: se cargan los autores actuales para poder cambiarlos
         var libro = await db.Libros
             .Include(l => l.Autores)
             .FirstOrDefaultAsync(l => l.Id == id)
@@ -72,7 +70,6 @@ public class LibroService(BibliotecaContext db) : ILibroService
         if (await db.Libros.AnyAsync(l => l.Isbn == isbn && l.Id != id))
             throw new ReglaNegocioException("Ya existe otro libro con ese ISBN.");
 
-        // Los ejemplares prestados no pueden "desaparecer" al editar el total
         var prestados = libro.EjemplaresTotales - libro.EjemplaresDisponibles;
         if (dto.EjemplaresTotales < prestados)
             throw new ReglaNegocioException(
@@ -84,7 +81,6 @@ public class LibroService(BibliotecaContext db) : ILibroService
         libro.EjemplaresTotales = dto.EjemplaresTotales;
         libro.EjemplaresDisponibles = dto.EjemplaresTotales - prestados;
 
-        // Reemplazar autores: EF calcula qué filas de LibroAutor borrar e insertar
         var nuevosAutores = await ObtenerAutoresAsync(dto.AutorIds);
         libro.Autores.Clear();
         foreach (var autor in nuevosAutores) libro.Autores.Add(autor);
@@ -100,7 +96,7 @@ public class LibroService(BibliotecaContext db) : ILibroService
         if (await db.Prestamos.AnyAsync(p => p.LibroId == id))
             throw new ReglaNegocioException("No se puede eliminar: el libro tiene préstamos registrados.");
 
-        db.Libros.Remove(libro);   // LibroAutor se borra solo (ON DELETE CASCADE)
+        db.Libros.Remove(libro);   
         await db.SaveChangesAsync();
     }
 
@@ -115,7 +111,6 @@ public class LibroService(BibliotecaContext db) : ILibroService
         return autores;
     }
 
-    // Una sola proyección reutilizada por Listar y Obtener
     private static System.Linq.Expressions.Expression<Func<Libro, LibroDto>> ProyectarDto() => l => new LibroDto
     {
         Id = l.Id,

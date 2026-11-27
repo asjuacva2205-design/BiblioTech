@@ -2,10 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BiblioTech.Api.DTOs.Libros;
 
-/// <summary>
-/// Entrada para crear o editar un libro. Los disponibles NO se reciben:
-/// los calcula el servidor (al crear = totales; al editar se respetan los prestados).
-/// </summary>
+
 public class LibroGuardarDto
 {
     [Required(ErrorMessage = "El título es obligatorio.")]

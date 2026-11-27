@@ -20,7 +20,6 @@ public class LoginRespuestaDto
     public DateTime ExpiraUtc { get; set; }
 }
 
-/// <summary>Para crear el PRIMER bibliotecario (solo funciona con la tabla Usuarios vacía).</summary>
 public class RegistrarUsuarioDto
 {
     [Required(ErrorMessage = "El correo es obligatorio.")]

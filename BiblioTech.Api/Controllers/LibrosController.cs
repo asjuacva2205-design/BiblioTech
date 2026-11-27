@@ -10,7 +10,6 @@ namespace BiblioTech.Api.Controllers;
 [Authorize]
 public class LibrosController(ILibroService servicio) : ControllerBase
 {
-    /// <summary>GET api/libros?buscar=garcia</summary>
     [HttpGet]
     public async Task<ActionResult<List<LibroDto>>> Listar([FromQuery] string? buscar)
         => Ok(await servicio.ListarAsync(buscar));

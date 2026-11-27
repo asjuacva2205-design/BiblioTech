@@ -14,7 +14,6 @@ public class PrestamosController(IPrestamoService servicio) : ControllerBase
     private static readonly string[] EstadosValidos =
         [EstadosPrestamo.Activo, EstadosPrestamo.Devuelto, EstadosPrestamo.Vencido];
 
-    /// <summary>GET api/prestamos?estado=Activo|Devuelto|Vencido</summary>
     [HttpGet]
     public async Task<ActionResult<List<PrestamoDto>>> Listar([FromQuery] string? estado)
     {
@@ -30,7 +29,6 @@ public class PrestamosController(IPrestamoService servicio) : ControllerBase
     public async Task<ActionResult<PrestamoDto>> Obtener(int id)
         => Ok(await servicio.ObtenerAsync(id));
 
-    /// <summary>Registra un préstamo aplicando las reglas R1–R6 (409 si alguna falla).</summary>
     [HttpPost]
     public async Task<ActionResult<PrestamoDto>> Crear(PrestamoCrearDto dto)
     {
@@ -45,7 +43,6 @@ public class PrestamosController(IPrestamoService servicio) : ControllerBase
         return NoContent();
     }
 
-    /// <summary>Reporte desde la vista vw_PrestamosVencidos.</summary>
     [HttpGet("vencidos")]
     public async Task<ActionResult<List<PrestamoVencidoDto>>> Vencidos()
         => Ok(await servicio.ListarVencidosAsync());

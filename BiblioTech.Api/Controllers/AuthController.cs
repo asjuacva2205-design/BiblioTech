@@ -7,10 +7,9 @@ namespace BiblioTech.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[AllowAnonymous]   // es la puerta de entrada: no puede exigir token
+[AllowAnonymous]   
 public class AuthController(IAuthService servicio) : ControllerBase
 {
-    /// <summary>POST api/auth/login → 200 con el token, o 401.</summary>
     [HttpPost("login")]
     public async Task<ActionResult<LoginRespuestaDto>> Login(LoginDto dto)
     {
@@ -23,10 +22,7 @@ public class AuthController(IAuthService servicio) : ControllerBase
             : Ok(respuesta);
     }
 
-    /// <summary>
-    /// POST api/auth/registrar-inicial → crea el primer bibliotecario (día 3).
-    /// Solo funciona mientras la tabla Usuarios esté vacía; después responde 409.
-    /// </summary>
+   
     [HttpPost("registrar-inicial")]
     public async Task<IActionResult> RegistrarInicial(RegistrarUsuarioDto dto)
     {

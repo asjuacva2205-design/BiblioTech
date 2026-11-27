@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BiblioTech.Api.DTOs.Dashboard;
 using BiblioTech.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace BiblioTech.Api.Data;
 
@@ -23,6 +24,7 @@ public partial class BibliotecaContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<VwPrestamosVencido> VwPrestamosVencidos { get; set; }
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

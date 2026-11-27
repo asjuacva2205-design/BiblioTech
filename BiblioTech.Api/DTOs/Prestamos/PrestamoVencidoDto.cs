@@ -1,6 +1,5 @@
 namespace BiblioTech.Api.DTOs.Prestamos;
 
-/// <summary>Una fila del reporte de vencidos (sale de la vista vw_PrestamosVencidos).</summary>
 public class PrestamoVencidoDto
 {
     public int PrestamoId { get; set; }

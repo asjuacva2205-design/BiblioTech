@@ -5,13 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioTech.Api.Controllers;
 
-/// <summary>
-/// El Controller solo recibe la petición, llama al servicio y devuelve el código HTTP.
-/// [ApiController] valida el DTO (400 si falla). Los 404/409 los produce el middleware.
-/// </summary>
 [ApiController]
-[Route("api/[controller]")]   // => api/autores
-[Authorize]                   // sin token válido → 401
+[Route("api/[controller]")]   
+[Authorize]                   
 public class AutoresController(IAutorService servicio) : ControllerBase
 {
     [HttpGet]
@@ -26,7 +22,6 @@ public class AutoresController(IAutorService servicio) : ControllerBase
     public async Task<ActionResult<AutorDto>> Crear(AutorGuardarDto dto)
     {
         var creado = await servicio.CrearAsync(dto);
-        // 201 Created + cabecera Location con la URL del nuevo recurso
         return CreatedAtAction(nameof(Obtener), new { id = creado.Id }, creado);
     }
 

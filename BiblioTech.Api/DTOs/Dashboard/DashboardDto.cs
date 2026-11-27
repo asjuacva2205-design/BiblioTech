@@ -1,6 +1,5 @@
 namespace BiblioTech.Api.DTOs.Dashboard;
 
-/// <summary>Indicadores de la pantalla de inicio. Sale del SP sp_ResumenDashboard.</summary>
 public class DashboardDto
 {
     public int TotalLibros { get; set; }

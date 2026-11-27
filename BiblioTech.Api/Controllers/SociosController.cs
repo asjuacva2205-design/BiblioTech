@@ -10,7 +10,6 @@ namespace BiblioTech.Api.Controllers;
 [Authorize]
 public class SociosController(ISocioService servicio) : ControllerBase
 {
-    /// <summary>GET api/socios?soloActivos=true (para el combo de "Nuevo préstamo")</summary>
     [HttpGet]
     public async Task<ActionResult<List<SocioDto>>> Listar([FromQuery] bool soloActivos = false)
         => Ok(await servicio.ListarAsync(soloActivos));
@@ -33,7 +32,6 @@ public class SociosController(ISocioService servicio) : ControllerBase
         return NoContent();
     }
 
-    /// <summary>DELETE = desactivar (borrado lógico)</summary>
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Desactivar(int id)
     {

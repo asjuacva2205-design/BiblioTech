@@ -17,6 +17,5 @@ public class SocioGuardarDto
     [StringLength(150, ErrorMessage = "El correo admite máximo 150 caracteres.")]
     public string Email { get; set; } = string.Empty;
 
-    /// <summary>Solo se usa al editar (permite reactivar un socio).</summary>
     public bool Activo { get; set; } = true;
 }

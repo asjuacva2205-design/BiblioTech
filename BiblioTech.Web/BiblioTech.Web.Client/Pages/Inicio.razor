@@ -5,27 +5,85 @@
 
 <PageTitle>Inicio · BiblioTech</PageTitle>
 
-<h1 class="h3 mb-4">Inicio</h1>
+<!-- Banner / Hero de la Sala Principal -->
+<div class="biblio-hero">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-2">
+        <div>
+            <span class="biblio-status-pill">
+                <span class="status-dot"></span> Archivo y Circulación en Servicio
+            </span>
+            <h1 class="biblio-hero-title mt-2 mb-1">Sala de Lectura y Control</h1>
+        </div>
+        <a class="btn btn-primary d-inline-flex align-items-center gap-2 px-3 py-2" href="prestamos/nuevo">
+            <span>➕</span>
+            <span>Nuevo Préstamo</span>
+        </a>
+    </div>
+    <p class="biblio-quote">
+        «Un libro abierto es un cerebro que habla; cerrado, un amigo que espera; olvidado, un alma que perdona.»
+    </p>
+</div>
 
 <Alerta Mensaje="@error" Tipo="danger" />
 
 @if (resumen is null)
 {
-    @if (error is null) { <Cargando Texto="Cargando indicadores..." /> }
+    @if (error is null) { <Cargando Texto="Cargando indicadores del archivo..." /> }
 }
 else
 {
-    @* Los números salen del procedimiento almacenado sp_ResumenDashboard *@
-    <div class="row g-3">
-        <Indicador Titulo="Libros" Valor="resumen.TotalLibros" Color="primary" Enlace="libros" />
-        <Indicador Titulo="Ejemplares disponibles" Valor="resumen.EjemplaresDisponibles" Color="success" Enlace="libros" />
-        <Indicador Titulo="Préstamos activos" Valor="resumen.PrestamosActivos" Color="info" Enlace="prestamos" />
-        <Indicador Titulo="Préstamos vencidos" Valor="resumen.PrestamosVencidos" Color="danger" Enlace="prestamos/vencidos" />
-        <Indicador Titulo="Socios activos" Valor="resumen.SociosActivos" Color="secondary" Enlace="socios" />
+    <!-- Fichas de Indicadores en tiempo real -->
+    <div class="row g-3 mb-4">
+        <Indicador Titulo="Libros en catálogo" Valor="resumen.TotalLibros" Color="primary" Enlace="libros" Icono="📚" />
+        <Indicador Titulo="Ejemplares disponibles" Valor="resumen.EjemplaresDisponibles" Color="success" Enlace="libros" Icono="📗" />
+        <Indicador Titulo="Préstamos activos" Valor="resumen.PrestamosActivos" Color="info" Enlace="prestamos" Icono="📖" />
+        <Indicador Titulo="Préstamos en mora" Valor="resumen.PrestamosVencidos" Color="danger" Enlace="prestamos/vencidos" Icono="⏳" />
+        <Indicador Titulo="Lectores activos" Valor="resumen.SociosActivos" Color="secondary" Enlace="socios" Icono="👥" />
     </div>
 
-    <div class="mt-4">
-        <a class="btn btn-primary" href="prestamos/nuevo">+ Nuevo préstamo</a>
+    <!-- Atajos Rápidos de Mostrador -->
+    <div class="mt-4 pt-2">
+        <h2 class="h6 mb-3 text-secondary text-uppercase fw-bold" style="letter-spacing: 0.08em; font-size: 0.8rem;">
+            Operaciones del Mostrador
+        </h2>
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-3">
+                <a href="prestamos/nuevo" class="quick-action-card">
+                    <div class="quick-action-icon">➕</div>
+                    <div>
+                        <div class="quick-action-title">Nuevo Préstamo</div>
+                        <p class="quick-action-desc">Registrar salida de ejemplar</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="libros" class="quick-action-card">
+                    <div class="quick-action-icon">📖</div>
+                    <div>
+                        <div class="quick-action-title">Acervo de Libros</div>
+                        <p class="quick-action-desc">Catálogo, títulos y stock</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="socios" class="quick-action-card">
+                    <div class="quick-action-icon">👥</div>
+                    <div>
+                        <div class="quick-action-title">Padrón de Lectores</div>
+                        <p class="quick-action-desc">Socios y miembros activos</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="prestamos/vencidos" class="quick-action-card">
+                    <div class="quick-action-icon">⏳</div>
+                    <div>
+                        <div class="quick-action-title">Control de Mora</div>
+                        <p class="quick-action-desc">Seguimiento a devoluciones</p>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 }
 

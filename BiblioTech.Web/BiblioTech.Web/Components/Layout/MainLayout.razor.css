@@ -2,33 +2,52 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
     flex: 1;
+    background-color: var(--biblio-parchment);
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background: linear-gradient(180deg, #121c27 0%, #192736 50%, #0e161f 100%);
+    border-right: 1px solid rgba(197, 155, 39, 0.25);
+    box-shadow: 3px 0 16px rgba(10, 15, 20, 0.2);
 }
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e6dfd3;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
     align-items: center;
+    box-shadow: 0 1px 4px rgba(39, 34, 30, 0.03);
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
+    .top-row ::deep a:not(.btn), .top-row ::deep .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
+        color: var(--biblio-wood);
+        font-weight: 500;
+        transition: color 0.15s ease;
     }
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
+    .top-row ::deep a:not(.btn):hover, .top-row ::deep .btn-link:hover {
+        color: var(--biblio-wood-hover);
         text-decoration: underline;
+    }
+
+    .top-row ::deep a.btn-primary {
+        color: #ffffff !important;
+        text-decoration: none !important;
+    }
+
+    .top-row ::deep a.btn-primary:hover {
+        color: #ffffff !important;
+        text-decoration: none !important;
     }
 
     .top-row ::deep a:first-child {
@@ -61,7 +80,7 @@ main {
     .top-row {
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 10;
     }
 
     .top-row.auth ::deep a:first-child {
@@ -78,9 +97,11 @@ main {
 
 #blazor-error-ui {
     color-scheme: light only;
-    background: lightyellow;
+    background: #fff8f8;
+    color: var(--biblio-danger);
+    border-top: 2px solid var(--biblio-danger);
     bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     display: none;
     left: 0;
